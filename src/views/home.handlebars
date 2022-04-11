@@ -1,0 +1,36 @@
+<!-- home.handlebars
+		Copyright © 2018-2022 Joel A Mussman. All rights reserved.
+-->
+
+{{#if name}}
+
+<h1>Welcome {{name}}!</h1>
+El Centro Comercial de Café is the premier source for coffee from Latin America!
+
+<h2>The Carribean Coffee Company has {{discount}}% off wholesale pricing.</h2>
+
+{{else}}
+
+<h1>Welcome to El Centro Comercial de Café!</h1>
+The premier source for coffee from Latin America!
+Please sign in to order.
+
+{{/if}}
+
+<h2>Recent popular choices:<h2>
+
+<table class="cafe">
+	<tbody>
+		<tr>
+			{{#each product}}
+			<td>
+				<img class="cafe" src="/assets/images/cafe{{this}}.png" />
+				{{#if ../name}}
+				<span class="price-label">from </span><span class="price">${{../basePrice}}</span><br>
+				{{/if}}
+				<img src="/assets/images/five-stars.png" />
+			</td>
+			{{/each}}
+		</tr>
+	</tbody>
+</table>

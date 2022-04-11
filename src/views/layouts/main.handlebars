@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- main.handlebars
+		Copyright © 2018-2022 Joel A Mussman. All rights reserved.
+
+		Attributions:
+			Map images are used from U.S. government sources and in the public domain.
+			Coffee bean images are taken from https://www.pngall.com/coffee-beans-png
+			and licensed under Creative Commons 4.0 BY-NC.
+-->
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>The Caribbean Coffee Company</title>
+	<link rel="stylesheet" type="text/css" href="assets/style/application.css" />
+</head>
+<body>
+
+	<!-- This is a WIAM application with it's own header, footer, etc. -->
+
+	<header class="app-header">
+		<div class="app-logo">
+			<img id="app-logo" src="/assets/images/header.png" alt="title" />
+		</div>
+		<div class="nav-button">
+				{{#if name}}
+					<button class="nav-button" onclick="location = '/logout'">LOGOUT</button>
+				{{else}}
+					<button class="nav-button" onclick="location = '/login'">LOGIN</button>
+				{{/if}}
+		</div>
+	</header>
+
+	<div class="background">
+		<img src="/assets/images/coffee-beans.png" />
+	</div>
+
+	<!-- This is where handlebars formats in the page content being rendered. -->
+
+	<div class="app-content">
+	    {{{body}}}
+	</div>
+
+	<footer fragment="footer" class="app-footer">
+        <div class="clear-all"></div>
+        Copyright &copy; 2018-2022 Centro Comercial de Café. All rights reserved.
+    </footer>
+</body>
+</html>
