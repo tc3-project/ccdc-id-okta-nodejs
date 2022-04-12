@@ -85,9 +85,12 @@ set OKTA_CLIENT_ID=<the client id for your application registration>
 set OKTA_CLIENT_SECRET=<the secret password for your application registration>
 ```
 
-Start the application and visit http://localhost:8081.
+Running the command *npm start* will launch *nodemon* and start the application.
+Nodemon watches for any changes in the source and restarts the service when there are changes.
+Visit http://localhost:8081.
 Click the login button and authenticate with a user assigned to the application in the Okta organization.
 Notice the change in page display, now it shows the authenticated user's name and discount prices for wholesale products.
+The products are randomly selected, and the discounts and prices keep changing.
 
 ## Related Projects
 
