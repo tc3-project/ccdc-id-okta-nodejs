@@ -4,7 +4,7 @@ original project concept by Joel Mussman and Justin Poole
 
 El Central Comercial de Cafe (a.k.a as CCDC or The Commercial Coffee Center) is the wholesale vendor
 component of the The Caribbean Coffee Company (TC3) sandbox-universe.
-TC3 is a cafe-operations project that was develope starting in 2018 as the basis for demonstrations
+TC3 is a cafe-operations project that was developed in 2018 as the basis for demonstrations
 and classwork for almost every software development technology that you can work with, from databases through devices.
 All participants can identify with the cafe scenario and have a feel for how it must work.
 The core environment is kept simple: products, employees, and customers.
