@@ -26,7 +26,9 @@ const clientId = process.env.OKTA_CLIENT_ID
 const clientSecret = process.env.OKTA_CLIENT_SECRET
 const debug = true;
 
-// The exported function is called from server.js to launch.
+// The exported function is called from server.js to launch. It is exported as the
+// default export of the module, so the client code using it can import it with
+// whatever name is required. In this example server.js imports it as "start".
 
 export default () => {
 
@@ -34,17 +36,20 @@ export default () => {
 
 	const app = express()
 
-	// Set the source for static files.
+	// The static middleware component registers the source of static files; whenever the browser
+	// requests a static file (image, style sheet, etc.) it will be served from here.
 
 	app.use(express.static('src/static'))
 
-	// Setup the handlebars engine for HTML templates.
+	// Setup the handlebars engine for HTML templates. Handlebars templates have placeholders which
+	// are merged with data when the page is sent to the user.
 
 	app.engine('handlebars', engine());
 	app.set('view engine', 'handlebars');
 	app.set('views', './src/views');
 
-	// Configure sessions, this is an OIDC middleware dependency.
+	// Configure sessions, this is an Okta OIDC middleware dependency, it's where it saves things
+	// between requests.
 
 	app.use(session({
 
@@ -56,7 +61,10 @@ export default () => {
 	}));
 
 	// Create the Okta OIDC middleware instance; see https://github.com/okta/okta-oidc-middleware,
-	// and register it.
+	// and register it. The middleware creates a /login endpoint which starts and auth code flow
+	// when called, an /authorization-code/callback endpoint which handles the alpha code and a
+	// /logout (POST) callback that will log the user out of the Okta org. /login is called when
+	// the user clicks the button presented by the template main.handlebars.
 
 	const oidc = new ExpressOIDC({
 
@@ -69,8 +77,10 @@ export default () => {
 
 	app.use(oidc.router);
 
-	// Register a handler for the / landing page. If the user is not already authenticated
-	// this will redirect the browser to authenticate and return identity.
+	// Register a handler for the / landing page. The page shows a random selection of coffees
+	// without prices, unless the user is authenticated in which case prices are shown. The
+	// button to login (or logout) is in the boilerplate in main.handlebars, and sends the browser to
+	// /login to initiate an OIDC authorization code flow. The entire flow is handled in the middleware.
 
 	app.get('/', (req, res) => {
 
@@ -97,12 +107,15 @@ export default () => {
 	})
 
 	// Register a /logout handler to log out and land back on the home page. This is a WIAM
-	// so logging out destroys the application session and leaves the Okta session intact.
-	// Clicking the login button with an active Okta session will log in the user without
-	// authentication.
+	// application so logging out destroys the local session but leaves the Okta session intact.
+	// The main.handlebars template changes the login button to logout when the application
+	// has an id token. The logout button calls this endpoint.
 	//
-	// The /logout endpoint registered by oidc-middleware canis not used because:
-	//	a) It is registered for a POST.
+	// After logout clicking the login button with an active Okta session will retrieve an
+	// id token but the user will not be required to re-authenticate.
+	//
+	// The /logout endpoint registered by oidc-middleware is not used because:
+	//	a) It is registered for a POST action.
 	//	b) It will destroy the Okta session and that is not desired for WIAM.
 
 	app.get('/logout', (req, res) => {
@@ -111,8 +124,8 @@ export default () => {
 		res.redirect('/');
 	})
 
-	// The application cannot launch until the OIDC middleware is ready, so this callback
-	// will execute when that happens and start Express listening.
+	// The application cannot launch until the Okta OIDC middleware is ready, so this callback
+	// delays proceeding until that happens, and then starts Express listening for connections.
 
 	oidc.on('ready', () => {
 
@@ -122,7 +135,7 @@ export default () => {
 		})
 	})
 
-	// Any error in the OIDC middleware will land on this callback.
+	// Any error occuring in the Okta OIDC middleware will land on this callback.
 
 	oidc.on('error', err => {
 
