@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>The Caribbean Coffee Company</title>
+    <title>El Centro Comercial de Cafe</title>
 	<link rel="stylesheet" type="text/css" href="assets/style/application.css" />
 </head>
 <body>
@@ -22,6 +22,9 @@
 		<div class="app-logo">
 			<img id="app-logo" src="/assets/images/header.png" alt="title" />
 		</div>
+	</header>
+
+	<nav>
 		<div class="nav-button">
 				{{#if name}}
 					<button class="nav-button" onclick="location = '/logout'">LOGOUT</button>
@@ -29,17 +32,15 @@
 					<button class="nav-button" onclick="location = '/login'">LOGIN</button>
 				{{/if}}
 		</div>
-	</header>
+	</nav>
 
-	<div class="background">
-		<img src="/assets/images/coffee-beans.png" />
-	</div>
+	<main>
+		<!-- This is where handlebars formats in the page content being rendered. -->
 
-	<!-- This is where handlebars formats in the page content being rendered. -->
-
-	<div class="app-content">
-	    {{{body}}}
-	</div>
+		<div class="app-content">
+			{{{body}}}
+		</div>
+	</main>
 
 	<footer fragment="footer" class="app-footer">
         <div class="clear-all"></div>

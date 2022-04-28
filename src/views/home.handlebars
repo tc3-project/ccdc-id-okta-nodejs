@@ -5,14 +5,14 @@
 {{#if name}}
 
 <h1>Welcome {{name}}!</h1>
-El Centro Comercial de Café is the premier source for coffee from Latin America!
+El Centro Comercial de Café is the premier wholesale source for coffee from Latin America!
 
 <h2>The Carribean Coffee Company has {{discount}}% off wholesale pricing.</h2>
 
 {{else}}
 
 <h1>Welcome to El Centro Comercial de Café!</h1>
-The premier source for coffee from Latin America!
+The premier wholesale source for coffee from Latin America!
 Please sign in to order.
 
 {{/if}}
@@ -26,7 +26,7 @@ Please sign in to order.
 			<td>
 				<img class="cafe" src="/assets/images/cafe{{this}}.png" />
 				{{#if ../name}}
-				<span class="price-label">from </span><span class="price">${{../basePrice}}</span><br>
+				<span class="price-label">from </span><span class="price">${{../basePrice}}/lb (${{../basePriceK}}/kg)</span><br>
 				{{/if}}
 				<img src="/assets/images/five-stars.png" />
 			</td>

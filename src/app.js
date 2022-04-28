@@ -53,7 +53,7 @@ export default () => {
 
 	app.use(session({
 
-		name: "tc3-rewards-sid",
+		name: "ccdc-wholesale-sid",
 		secret: 'not-so-random-but-this-is-an-example',
 		resave: true,
 		saveUninitialized: false,
@@ -102,6 +102,7 @@ export default () => {
 			name: req.userContext?.userinfo?.name,
 			discount: discount,
 			basePrice: (8.95 * ((100 - discount) / 100)).toFixed(2),
+			basePriceK: (19.73 * ((100 - discount) / 100)).toFixed(2),
 			product: coffees
 		})
 	})
