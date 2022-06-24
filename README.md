@@ -37,7 +37,7 @@ You can follow this in the code by reviewing the comments.
 
 <br>
 
-# ccdc-id-okta-nodejs
+# ec3-id-okta-nodejs
 
 ## History
 
